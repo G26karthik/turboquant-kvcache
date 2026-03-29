@@ -1,0 +1,118 @@
+{
+  "config": {
+    "model": "gpt2-medium",
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "dtype": "torch.float16",
+    "quant_bits": 4,
+    "quant_scheme": "3-bit Lloyd-Max MSE + 1-bit QJL residual",
+    "d_head": 64,
+    "max_new_tokens": 50,
+    "seed": 42,
+    "torch_version": "2.5.1+cu121",
+    "num_prompts": 4,
+    "paper": "arXiv:2504.19874"
+  },
+  "baseline_avg": {
+    "tokens_per_sec": 40.3118,
+    "kv_cache_kb": 5664.0,
+    "memory_delta_mb": 5.438,
+    "perplexity": 4.2572
+  },
+  "turboquant_avg": {
+    "tokens_per_sec": 11.9596,
+    "kv_cache_kb": 1740.0,
+    "memory_delta_mb": 17.5347,
+    "perplexity": 4.5154
+  },
+  "summary": {
+    "compression_ratio": 3.26,
+    "perplexity_change_pct": 6.07,
+    "speed_change_pct": -70.34
+  },
+  "codebook": {
+    "dim": 64,
+    "mse_bits": 3,
+    "n_levels": 8,
+    "centroids": [
+      -0.26386008042531967,
+      -0.16610064385209014,
+      -0.09377356547388828,
+      -0.030445660200927913,
+      0.0304456602009279,
+      0.09377356547388827,
+      0.16610064385209006,
+      0.2638600804253196
+    ]
+  },
+  "per_prompt": {
+    "baseline": [
+      {
+        "prompt": "The future of artificial intelligence in healthcare will",
+        "tokens_per_sec": 46.919,
+        "kv_cache_kb": 5568.0,
+        "memory_delta_mb": 5.3442,
+        "perplexity": 2.9918,
+        "generated_text": "The future of artificial intelligence in healthcare will be determined by how well it can learn from its own mistakes and adapt to new challenges.\n\n\"The future of artificial intelligence in healthcare will be determined by how well it can learn from its own mistakes and adapt to new challenges,\" said Dr."
+      },
+      {
+        "prompt": "Quantum computing represents a fundamental shift in",
+        "tokens_per_sec": 28.6862,
+        "kv_cache_kb": 5568.0,
+        "memory_delta_mb": 5.3442,
+        "perplexity": 4.4853,
+        "generated_text": "Quantum computing represents a fundamental shift in the way we think about the world. It is a fundamental shift in the way we think about the world.\n\nThe first quantum computer was built in the 1950s by the British physicist Alan Turing. It was a machine that could perform calculations in"
+      },
+      {
+        "prompt": "The most significant challenge facing climate science today is",
+        "tokens_per_sec": 38.8851,
+        "kv_cache_kb": 5664.0,
+        "memory_delta_mb": 5.438,
+        "perplexity": 4.3248,
+        "generated_text": "The most significant challenge facing climate science today is the lack of a consensus on the causes of climate change,\" said Dr. David R. Schindler, director of the Center for Climate Change Communication at the University of California, Berkeley. \"The scientific community is divided on the causes of climate change"
+      },
+      {
+        "prompt": "In the field of natural language processing, transformer models have",
+        "tokens_per_sec": 46.8458,
+        "kv_cache_kb": 5856.0,
+        "memory_delta_mb": 5.6255,
+        "perplexity": 5.2267,
+        "generated_text": "In the field of natural language processing, transformer models have been used to model the processing of natural language. The model is a set of rules that describe how to transform a natural language sentence into a machine-readable representation.\n\nThe model is a set of rules that describe how to transform a natural language"
+      }
+    ],
+    "turboquant": [
+      {
+        "prompt": "The future of artificial intelligence in healthcare will",
+        "tokens_per_sec": 9.1035,
+        "kv_cache_kb": 1710.0,
+        "memory_delta_mb": 17.1597,
+        "perplexity": 3.0082,
+        "generated_text": "The future of artificial intelligence in healthcare will be determined by the ability of AI to learn from experience and adapt to changing circumstances.\n\nThe future of artificial intelligence in healthcare will be determined by the ability of AI to learn from experience and adapt to changing circumstances.\n\nThe future of artificial"
+      },
+      {
+        "prompt": "Quantum computing represents a fundamental shift in",
+        "tokens_per_sec": 11.7882,
+        "kv_cache_kb": 1710.0,
+        "memory_delta_mb": 17.1597,
+        "perplexity": 3.9629,
+        "generated_text": "Quantum computing represents a fundamental shift in the way we think about the world. It's a revolution in how we think about the universe, and it's a revolution in how we think about the human mind.\n\nThe first quantum computer was built in the 1960s, and it was"
+      },
+      {
+        "prompt": "The most significant challenge facing climate science today is",
+        "tokens_per_sec": 12.9241,
+        "kv_cache_kb": 1740.0,
+        "memory_delta_mb": 17.5347,
+        "perplexity": 4.9258,
+        "generated_text": "The most significant challenge facing climate science today is the lack of a consensus on the best way to address climate change,\" said Dr. David R. Schmidt, director of the Center for Climate Change Science and Technology at Stanford University. \"The scientific community is divided on how best to address climate change,"
+      },
+      {
+        "prompt": "In the field of natural language processing, transformer models have",
+        "tokens_per_sec": 14.0226,
+        "kv_cache_kb": 1800.0,
+        "memory_delta_mb": 18.2847,
+        "perplexity": 6.1647,
+        "generated_text": "In the field of natural language processing, transformer models have been used to model the processing of natural language. In this paper, we describe a transformer model for natural language processing, which we call the \"transformer model for natural language processing\". We describe the model in terms of a transformer, which is a"
+      }
+    ]
+  }
+}

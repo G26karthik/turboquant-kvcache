@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TurboQuant — Terminal Output</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f1117;
+    color: #e6e6e6;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  header .subtitle {
+    font-size: 13px;
+    color: #8b8fa3;
+  }
+  .terminal {
+    background: #1a1d28;
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .terminal-bar {
+    background: #12141d;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #2a2d3a;
+  }
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .dot-red { background: #ff5f57; }
+  .dot-yellow { background: #febc2e; }
+  .dot-green { background: #28c840; }
+  .terminal-title {
+    font-size: 12px;
+    color: #8b8fa3;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+  .terminal-body {
+    padding: 24px 28px;
+    font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .dim { color: #555a6e; }
+  .cyan { color: #8be9fd; }
+  .green { color: #50fa7b; }
+  .yellow { color: #f1fa8c; }
+  .orange { color: #ffb86c; }
+  .red { color: #ff6b6b; }
+  .purple { color: #bd93f9; }
+  .white { color: #f8f8f2; font-weight: 600; }
+  .blue { color: #4a9eff; }
+  .bold { font-weight: 700; }
+  .separator { color: #3a3d4a; }
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>TurboQuant Benchmark &mdash; Terminal Output</h1>
+    <div class="subtitle">GPT-2 Medium &middot; 4-bit (3-bit Lloyd-Max MSE + 1-bit QJL) &middot; CUDA</div>
+  </header>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="terminal-dot dot-red"></div>
+      <div class="terminal-dot dot-yellow"></div>
+      <div class="terminal-dot dot-green"></div>
+      <div class="terminal-title">PowerShell &mdash; python turbo_quant_demo.py</div>
+    </div>
+    <div class="terminal-body"><span class="separator">======================================================================</span>
+<span class="white">  TurboQuant KV Cache Quantization Demo -- GPT-2 Medium</span>
+<span class="dim">  Paper: arXiv:2504.19874 (Zandieh et al., Google Research, 2025)</span>
+<span class="separator">======================================================================</span>
+<span class="cyan">  Device       :</span> cuda <span class="dim">(NVIDIA GeForce RTX 4060 Laptop GPU)</span>
+<span class="cyan">  Dtype        :</span> torch.float16
+<span class="cyan">  Quant bits   :</span> 4 <span class="dim">(3-bit Lloyd-Max MSE + 1-bit QJL)</span>
+<span class="cyan">  Max tokens   :</span> 50
+<span class="cyan">  Seed         :</span> 42
+<span class="cyan">  Prompts      :</span> 4
+
+<span class="purple">Computing Lloyd-Max codebook for d=64, 3-bit (8 levels) ...</span>
+<span class="dim">  Centroids: [-0.26386  -0.166101 -0.093774 -0.030446  0.030446  0.093774  0.166101
+  0.26386 ]</span>
+
+<span class="purple">Loading gpt2-medium on cuda (torch.float16) ...</span>
+<span class="green">  Model loaded: 354.8M params, d_head=64, n_heads=16, n_layers=24</span>
+<span class="dim">Warmup run ...</span>
+
+<span class="yellow">[Prompt 1/4]</span> The future of artificial intelligence in healthcare will...
+  Running baseline ... <span class="blue">done (46.9 tok/s)</span>
+  Running TurboQuant ... <span class="orange">done (9.1 tok/s)</span>
+
+<span class="yellow">[Prompt 2/4]</span> Quantum computing represents a fundamental shift in...
+  Running baseline ... <span class="blue">done (28.7 tok/s)</span>
+  Running TurboQuant ... <span class="orange">done (11.8 tok/s)</span>
+
+<span class="yellow">[Prompt 3/4]</span> The most significant challenge facing climate science today ...
+  Running baseline ... <span class="blue">done (38.9 tok/s)</span>
+  Running TurboQuant ... <span class="orange">done (12.9 tok/s)</span>
+
+<span class="yellow">[Prompt 4/4]</span> In the field of natural language processing, transformer mod...
+  Running baseline ... <span class="blue">done (46.8 tok/s)</span>
+  Running TurboQuant ... <span class="orange">done (14.0 tok/s)</span>
+
+<span class="separator">======================================================================</span>
+<span class="white">  RESULTS (averaged over 4 prompts)</span>
+<span class="separator">======================================================================</span>
+<span class="dim">            Metric</span> <span class="blue">Baseline</span> <span class="orange">TurboQuant</span>
+<span class="dim">        Tokens/sec</span>    <span class="blue">40.31</span>      <span class="orange">11.96</span>
+<span class="dim">     KV Cache (KB)</span>  <span class="blue">5664.00</span>    <span class="orange">1740.00</span>
+<span class="dim">GPU Mem Delta (MB)</span>     <span class="blue">5.44</span>      <span class="orange">17.53</span>
+<span class="dim">        Perplexity</span>     <span class="blue">4.26</span>       <span class="orange">4.52</span>
+
+  Compression ratio : <span class="green bold">3.3x</span>
+  Perplexity change : <span class="orange">+6.1%</span>
+  Speed change      : <span class="red">-70.3%</span></div>
+  </div>
+
+  <div class="footer">
+    Seed 42 &middot; torch 2.5.1+cu121 &middot; NVIDIA GeForce RTX 4060 Laptop GPU
+  </div>
+</div>
+</body>
+</html>

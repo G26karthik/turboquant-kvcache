@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TurboQuant KV Cache Benchmark</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f1117;
+    color: #e6e6e6;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  header .subtitle {
+    font-size: 14px;
+    color: #8b8fa3;
+    font-weight: 400;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .card {
+    background: #1a1d28;
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .card:hover {
+    border-color: #4a9eff44;
+  }
+  .card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #8b8fa3;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+  }
+  .bar-group {
+    display: grid;
+    grid-template-columns: 85px 1fr 90px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .bar-label {
+    font-size: 12px;
+    color: #a0a4b8;
+    font-weight: 500;
+  }
+  .bar-container {
+    height: 22px;
+    background: #12141d;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .bar {
+    height: 100%;
+    border-radius: 6px;
+    min-width: 4px;
+    transition: width 0.6s ease;
+  }
+  .bar-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e6e6e6;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .summary {
+    background: #1a1d28;
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .summary h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 24px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #50fa7b;
+    display: block;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .value.warn {
+    color: #ffb86c;
+  }
+  .stat .value.neutral {
+    color: #4a9eff;
+  }
+  .stat .label {
+    font-size: 12px;
+    color: #8b8fa3;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .about {
+    background: #1a1d28;
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .about h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  .about p {
+    font-size: 13px;
+    color: #a0a4b8;
+    line-height: 1.7;
+  }
+  .about a {
+    color: #4a9eff;
+    text-decoration: none;
+  }
+  .approx {
+    background: #1a1d28;
+    border: 1px solid #2a2d3a;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .approx h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+  .approx ul {
+    font-size: 12px;
+    color: #8b8fa3;
+    line-height: 1.8;
+    padding-left: 20px;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>TurboQuant KV Cache Benchmark &mdash; GPT-2 Medium</h1>
+    <div class="subtitle">4-bit TurboQuant&bull;prod &middot; (3)-bit Lloyd-Max MSE + 1-bit QJL &middot; 50 tokens &middot; CUDA</div>
+  </header>
+
+  <div class="cards">
+    
+        <div class="card">
+            <h3>Tokens / sec</h3>
+            <div class="bar-group">
+                <div class="bar-label">Baseline</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:100.0%;background:#4a9eff;"></div>
+                </div>
+                <div class="bar-value">40.31 tok/s</div>
+            </div>
+            <div class="bar-group">
+                <div class="bar-label">TurboQuant</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:29.7%;background:#ff6b6b;"></div>
+                </div>
+                <div class="bar-value">11.96 tok/s</div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>KV Cache Size</h3>
+            <div class="bar-group">
+                <div class="bar-label">Baseline</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:100.0%;background:#4a9eff;"></div>
+                </div>
+                <div class="bar-value">5664.00 KB</div>
+            </div>
+            <div class="bar-group">
+                <div class="bar-label">TurboQuant</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:30.7%;background:#50fa7b;"></div>
+                </div>
+                <div class="bar-value">1740.00 KB</div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>GPU Mem Delta</h3>
+            <div class="bar-group">
+                <div class="bar-label">Baseline</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:31.0%;background:#4a9eff;"></div>
+                </div>
+                <div class="bar-value">5.44 MB</div>
+            </div>
+            <div class="bar-group">
+                <div class="bar-label">TurboQuant</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:100.0%;background:#ff79c6;"></div>
+                </div>
+                <div class="bar-value">17.53 MB</div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Perplexity</h3>
+            <div class="bar-group">
+                <div class="bar-label">Baseline</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:94.3%;background:#4a9eff;"></div>
+                </div>
+                <div class="bar-value">4.26 </div>
+            </div>
+            <div class="bar-group">
+                <div class="bar-label">TurboQuant</div>
+                <div class="bar-container">
+                    <div class="bar" style="width:100.0%;background:#ffb86c;"></div>
+                </div>
+                <div class="bar-value">4.52 </div>
+            </div>
+        </div>
+  </div>
+
+  <div class="summary">
+    <h2>Summary</h2>
+    <div class="summary-grid">
+      <div class="stat">
+        <span class="value">3.3x</span>
+        <span class="label">Compression Ratio</span>
+      </div>
+      <div class="stat">
+        <span class="value warn">+6.1%</span>
+        <span class="label">Perplexity Change</span>
+      </div>
+      <div class="stat">
+        <span class="value warn">-70.3%</span>
+        <span class="label">Speed Change</span>
+      </div>
+      <div class="stat">
+        <span class="value neutral">gpt2-medium</span>
+        <span class="label">Model</span>
+      </div>
+      <div class="stat">
+        <span class="value neutral">CUDA</span>
+        <span class="label">Device</span>
+      </div>
+      <div class="stat">
+        <span class="value neutral">4-bit</span>
+        <span class="label">Quantization</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="about">
+    <h2>About This Implementation</h2>
+    <p>
+      <strong>TurboQuant</strong> (Zandieh, Daliri, Hadian &amp; Mirrokni, Google Research, 2025)
+      is a data-oblivious vector quantization algorithm that achieves near-optimal
+      distortion rates within a &asymp;2.7&times; factor of the information-theoretic lower bound.
+      It works by randomly rotating input vectors via an orthogonal matrix &Pi;
+      (QR decomposition of a Gaussian matrix)
+      to induce a concentrated Beta distribution on each coordinate, then applying
+      precomputed Lloyd-Max optimal scalar quantizers per coordinate.
+      For unbiased inner-product estimation &mdash; critical for attention score accuracy &mdash;
+      TurboQuant combines the MSE-optimal quantizer with a 1-bit Quantized
+      Johnson&ndash;Lindenstrauss (QJL) transform on the residual.
+      The paper demonstrates quality neutrality at 3.5 bits per channel and
+      marginal degradation at 2.5 bits, with over 4&times; KV cache compression
+      on Llama-3.1-8B and Ministral-7B.
+    </p>
+    <p style="margin-top:8px;font-size:12px;color:#666;">
+      Paper: <a href="https://arxiv.org/abs/2504.19874">arXiv:2504.19874</a> &middot;
+      QJL: <a href="https://arxiv.org/abs/2406.03482">arXiv:2406.03482</a> &middot;
+      PolarQuant: <a href="https://arxiv.org/abs/2502.02617">arXiv:2502.02617</a>
+    </p>
+  </div>
+
+  <div class="approx">
+    <h2>Approximations vs. the Paper</h2>
+    <ul>
+      <li>GPT-2 Medium has d_head=64; the paper targets d_head=128 (Llama/Ministral). At d=64 the Beta distribution is still well-concentrated.</li>
+      <li>No outlier channel separation (paper assigns different bit-widths to outlier vs. non-outlier channels based on calibration).</li>
+      <li>No custom CUDA kernels &mdash; all quantization uses PyTorch ops applied between forward passes, not fused inside attention.</li>
+      <li>Codebook is computed via numerical Lloyd-Max on the exact Beta PDF with d=64 (not the Gaussian approximation).</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    Generated by TurboQuant Demo &middot; Seed 42 &middot; torch 2.5.1+cu121
+  </div>
+</div>
+</body>
+</html>
