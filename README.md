@@ -1,6 +1,6 @@
 # TurboQuant KV Cache Demo — GPT-2 Medium
 
-A faithful PyTorch implementation of **TurboQuant** (Zandieh, Daliri, Hadian & Mirrokni, Google Research, 2025) applied to KV cache compression during autoregressive generation on GPT-2 Medium.
+A faithful PyTorch implementation of **TurboQuant** (Zandieh, Daliri, Hadian & Mirrokni, Google Research, 2026) applied to KV cache compression during autoregressive generation on GPT-2 Medium.
 
 > **Paper:** [arXiv:2504.19874](https://arxiv.org/abs/2504.19874) — *Online Vector Quantization with Near-optimal Distortion Rate*
 

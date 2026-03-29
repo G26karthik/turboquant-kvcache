@@ -1,7 +1,7 @@
 """
 TurboQuant KV Cache Quantization Demo — GPT-2 Medium
 =====================================================
-Faithful implementation of TurboQuant (Zandieh et al., Google Research, 2025)
+Faithful implementation of TurboQuant (Zandieh et al., Google Research, 2026)
 "Online Vector Quantization with Near-optimal Distortion Rate" (arXiv:2504.19874)
 
 Algorithm overview (from the paper):
@@ -917,7 +917,7 @@ def generate_html_report(results: Dict, output_path: str):
   <div class="about">
     <h2>About This Implementation</h2>
     <p>
-      <strong>TurboQuant</strong> (Zandieh, Daliri, Hadian &amp; Mirrokni, Google Research, 2025)
+      <strong>TurboQuant</strong> (Zandieh, Daliri, Hadian &amp; Mirrokni, Google Research, 2026)
       is a data-oblivious vector quantization algorithm that achieves near-optimal
       distortion rates within a &asymp;2.7&times; factor of the information-theoretic lower bound.
       It works by randomly rotating input vectors via an orthogonal matrix &Pi;
@@ -966,7 +966,7 @@ def generate_html_report(results: Dict, output_path: str):
 def main():
     print("=" * 70)
     print("  TurboQuant KV Cache Quantization Demo -- GPT-2 Medium")
-    print("  Paper: arXiv:2504.19874 (Zandieh et al., Google Research, 2025)")
+    print("  Paper: arXiv:2504.19874 (Zandieh et al., Google Research, 2026)")
     print("=" * 70)
     print(f"  Device       : {DEVICE}"
           f" ({torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU'})")
